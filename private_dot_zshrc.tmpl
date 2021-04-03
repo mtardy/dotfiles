@@ -1,0 +1,106 @@
+###############################################################
+# => Powerlevel10k
+###############################################################
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Load theme
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# Load configuration of the theme
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+###############################################################
+# => Aliases
+###############################################################
+# neovim for vim and vi
+alias vim="nvim"
+alias vi="nvim"
+
+# color for ls
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+alias ls="ls -G"
+
+# List directory contents
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
+
+###############################################################
+# => Vim mode
+###############################################################
+# bindkey -v
+# enable delete
+# bindkey -a '^[[3~' delete-char
+
+###############################################################
+# => Grep
+###############################################################
+# Ignore these folders (if the necessary grep flags are available)
+EXC_FOLDERS="{.bzr,CVS,.git,.hg,.svn,.idea,.tox}"
+GREP_OPTIONS="--color=auto --exclude-dir=$EXC_FOLDERS"
+# export grep, egrep and fgrep settings
+alias grep="grep $GREP_OPTIONS"
+alias egrep="egrep $GREP_OPTIONS"
+alias fgrep="fgrep $GREP_OPTIONS"
+
+###############################################################
+# => History
+###############################################################
+# History file configuration
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+[ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
+[ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
+
+# History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+
+###############################################################
+# => Completion
+###############################################################
+autoload -Uz compinit
+compinit
+
+unsetopt flowcontrol
+unsetopt menu_complete   # do not autoselect the first completion entry
+setopt auto_menu         # show completion menu on successive tab press
+setopt complete_in_word
+setopt always_to_end
+
+# bindkey -M menuselect '^o' accept-and-infer-next-history
+zstyle ':completion:*:*:*:*:*' menu select
+# case insensitive (all), partial-word and substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+# Complete . and .. special directories
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+###############################################################
+# => Plugins
+###############################################################
+# zsh-autosuggestions
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+###############################################################
+# => Golang
+###############################################################
+export GOPATH=$HOME/.go
+export PATH="$PATH:$GOPATH/bin"
+
+###############################################################
+# => Env secrets
+###############################################################
+# Github package read token mtardy
+export NPM_AUTH_TOKEN={{ (onepassword "44heb3gwevchjj3llcyxi3ofty").details.password }}
