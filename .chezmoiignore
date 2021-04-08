@@ -1,0 +1,6 @@
+{{ if ne .chezmoi.os "darwin" }}
+.p10k.zsh_darwin
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.p10k.zsh_linux
+{{ end }}
