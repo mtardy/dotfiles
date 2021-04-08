@@ -1,6 +1,5 @@
 " Mahé tardy
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -17,28 +16,59 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+Plug 'junegunn/goyo.vim', { 'for': ['markdown'] }
 
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => fzf
+" => goyo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ignore files if gitignore exists
-function! GFilesFallback()
-  let output = system('git rev-parse --show-toplevel') " Is there a faster way?
-  let prefix = get(g:, 'fzf_command_prefix', '')
-  if v:shell_error == 0
-    exec "normal :" . prefix . "GFiles\<CR>"
-  else
-    exec "normal :" . prefix . "Files\<CR>"
-  endif
-  return 0
+function! s:goyo_enter()
+    set linebreak
+    let b:quitting = 0
+    let b:quitting_bang = 0
+    autocmd QuitPre <buffer> let b:quitting = 1
+    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
 endfunction
 
-nnoremap <C-f> :call GFilesFallback()<CR>
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => yaml
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " => fzf
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " ignore files if gitignore exists
+" function! GFilesFallback()
+"   let output = system('git rev-parse --show-toplevel') " Is there a faster way?
+"   let prefix = get(g:, 'fzf_command_prefix', '')
+"   if v:shell_error == 0
+"     exec "normal :" . prefix . "GFiles\<CR>"
+"   else
+"     exec "normal :" . prefix . "Files\<CR>"
+"   endif
+"   return 0
+" endfunction
+"
+" nnoremap <C-f> :call GFilesFallback()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => easy align
@@ -257,6 +287,8 @@ map à ^
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Conquer Of Completion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Extensions
+let g:coc_global_extensions = ['coc-eslint', 'coc-json', 'coc-pyright', 'coc-tsserver', 'coc-yaml']
 
 " TextEdit might fail if hidden is not set.
 set hidden
