@@ -20,8 +20,14 @@ Plug 'tpope/vim-fugitive'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
 Plug 'junegunn/goyo.vim', { 'for': ['markdown'] }
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => terraform
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:terraform_fmt_on_save=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => goyo
