@@ -102,6 +102,9 @@ let g:go_auto_type_info = 1
 " GoImports on save, can be slow on large codebase
 let g:go_fmt_command = "goimports"
 
+" GoAddTags in camelCase instead of default snake_case
+let g:go_addtags_transform = "camelcase"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
