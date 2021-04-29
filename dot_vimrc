@@ -32,6 +32,8 @@ let g:terraform_fmt_on_save=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => goyo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:goyo_width="65%"
+
 function! s:goyo_enter()
     set linebreak
     let b:quitting = 0
@@ -133,6 +135,8 @@ set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*
 " Auto insert closing brackets
 inoremap {<CR>  {<CR>}<Esc>O
 
+" remove trailing whitespace in some files
+autocmd BufWritePre *.md %s/\s\+$//e
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
