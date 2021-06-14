@@ -14,6 +14,15 @@ then
 fi
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_AUTOSUGGESTIONS_PATH 
 
+# clone zsh-vi-mode
+# ZSH_VI_MODE_PATH=$ZSH_PACKAGE_PATH/zsh-vi-mode
+# if [ -d $ZSH_VI_MODE_PATH ]
+# then
+#     echo "[WARNING] zsh-vi-mode is already installed, removing $ZSH_VI_MODE_PATH and all its content..."
+#     rm -rf $ZSH_VI_MODE_PATH
+# fi
+# git clone https://github.com/jeffreytse/zsh-vi-mode.git $ZSH_VI_MODE_PATH
+
 # clone powerlevel10k
 POWERLEVEL10K_PATH=$ZSH_PACKAGE_PATH/powerlevel10k
 if [ -d $POWERLEVEL10K_PATH ]
@@ -22,3 +31,4 @@ then
     rm -rf $POWERLEVEL10K_PATH
 fi
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $POWERLEVEL10K_PATH 
+
