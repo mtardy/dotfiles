@@ -15,5 +15,8 @@
     }
   },
   "eslint.autoFixOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": ["md"]
+  "coc.preferences.formatOnSaveFiletypes": ["md"],
+  "yaml.schemas": {
+    "kubernetes": "/*.yaml"
+  }
 }
