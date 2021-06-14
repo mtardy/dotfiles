@@ -140,8 +140,12 @@ set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*
 " Auto insert closing brackets
 inoremap {<CR>  {<CR>}<Esc>O
 
-" remove trailing whitespace in some files
+" remove trailing whitespaces in some files
 autocmd BufWritePre *.md %s/\s\+$//e
+
+" Add simple command to remove trailing whitespaces
+command TrimTrailingWhitespaces %s/\s\+$//e
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
@@ -251,10 +255,6 @@ set termguicolors
 let g:dracula_italic = 0
 
 colorscheme dracula
-
-" hightlight trailing whitespace
-highlight RedundantSpaces ctermbg=grey guibg=grey
-match RedundantSpaces /\s\+$/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tabulation and indentation
