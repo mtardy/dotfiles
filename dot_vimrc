@@ -7,6 +7,7 @@ call plug#begin()
 
 Plug 'itchyny/lightline.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for':'go' }
+Plug 'AndrewRadev/splitjoin.vim', { 'for':'go' }
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['css', 'scss', 'json', 'markdown', 'yaml', 'html'] }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/vim-easy-align'
@@ -99,6 +100,9 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 
+let g:go_highlight_structs = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_build_constraints = 1
 " display info on highlight
 let g:go_auto_type_info = 1
 
@@ -181,6 +185,9 @@ set incsearch
 " Show matching parenthesis
 set showmatch
 
+" Break lines
+set linebreak
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerdtree configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -245,6 +252,10 @@ let g:dracula_italic = 0
 
 colorscheme dracula
 
+" hightlight trailing whitespace
+highlight RedundantSpaces ctermbg=grey guibg=grey
+match RedundantSpaces /\s\+$/
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tabulation and indentation
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -254,7 +265,7 @@ set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
-    
+
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
@@ -263,7 +274,7 @@ set tabstop=4
 set autoindent
 
 " automatically inserts one extra level of indentation in some cases
-set smartindent 
+set smartindent
 " To wrap lines visually
 set wrap
 
@@ -460,7 +471,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " this is handled by LanguageClient [LC]
 "let g:go_def_mapping_enabled = 0
 
-" Save with leader 
+" Save with leader
 nmap <leader>s :w!<cr>
 
 " Terminal Function
