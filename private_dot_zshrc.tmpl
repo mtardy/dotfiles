@@ -138,7 +138,11 @@ source $ZSH_PACKAGE_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 ###############################################################
 # => Golang
 ###############################################################
+{{ if eq .chezmoi.os "darwin" -}}
 export GOPATH=$HOME/.go
+{{ else if eq .chezmoi.os "linux" -}}
+export GOPATH=/usr/local/go
+{{ end -}}
 export PATH="$PATH:$GOPATH/bin"
 
 {{ if eq .chezmoi.os "darwin" -}}
