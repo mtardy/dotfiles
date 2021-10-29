@@ -32,3 +32,5 @@ then
 fi
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $POWERLEVEL10K_PATH 
 
+# install vim plugins
+vim +PlugInstall +qall
