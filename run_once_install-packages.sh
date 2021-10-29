@@ -37,4 +37,4 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 
 # install vim plugins
 echo "installing VIM plugins..."
-nvim +'PlugInstall --sync' +qa > /dev/null
+nvim -E -s +'PlugInstall --sync' +qa
