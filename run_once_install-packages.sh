@@ -36,4 +36,5 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $POWERLEVEL10K_
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install vim plugins
-nvim +'PlugInstall --sync' +qa
+echo "installing VIM plugins..."
+nvim +'PlugInstall --sync' +qa > /dev/null
