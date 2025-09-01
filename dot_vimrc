@@ -6,36 +6,23 @@
 call plug#begin()
 
 Plug 'itchyny/lightline.vim'
-Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['css', 'scss', 'json', 'markdown', 'yaml', 'html'] }
 Plug 'junegunn/vim-easy-align'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'hashivim/vim-terraform'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'cespare/vim-toml', { 'branch': 'main' }
-Plug 'lervag/vimtex'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'mengelbrecht/lightline-bufferline'
 
 call plug#end()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimtex
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimtex_compiler_enabled = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim markdown toc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vmt_dont_insert_fence = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => terraform
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:terraform_fmt_on_save=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => easy align
@@ -45,6 +32,12 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+let g:easy_align_delimiters = {
+  \ '\': {
+  \     'pattern': '\\$',
+  \ },
+  \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -81,7 +74,7 @@ autocmd BufWritePre *.md %s/\s\+$//e
 command TrimTrailingWhitespaces %s/\s\+$//e
 
 " Disable mouse
-set mouse=
+" set mouse=
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -95,9 +88,27 @@ set noshowmode
 
 " Color them for lightline
 let g:lightline = {
-    \ 'colorscheme': 'wombat',
-    \ }
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'gitbranch', 'buffers' ] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+
+let g:lightline.component_raw = {'buffers': 1}
+
+let g:lightline#bufferline#clickable = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -197,28 +208,14 @@ colorscheme dracula
 " => Tabulation and indentation
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
-" Indent on new line
+" indent on new line
 set autoindent
-
 " automatically inserts one extra level of indentation in some cases
 set smartindent
-" To wrap lines visually
-set wrap
-
-autocmd FileType c setlocal cindent tabstop=4
-
 " set a color column at 81
 set colorcolumn=81
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -236,12 +233,3 @@ nnoremap <C-H> <C-W><C-H>
 " return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Remap VIM 0 ('à' because of azerty)  to first non-blank character
-map à ^
-
-"highlight ColorColumn ctermbg=blue
-"set colorcolumn=81
