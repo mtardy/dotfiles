@@ -1,0 +1,38 @@
+font-family = MesloLGS NF
+cursor-text = #e9dbb7
+cursor-style = block
+cursor-style-blink = false
+window-step-resize = true
+adjust-underline-position = 4
+adjust-underline-thickness = -50%
+
+command = /opt/homebrew/bin/tmux
+keybind = cmd+h=text:\x02\x1b\x5b\x44
+keybind = cmd+j=text:\x02\x1b\x5b\x42
+keybind = cmd+k=text:\x02\x1b\x5b\x41
+keybind = cmd+l=text:\x02\x1b\x5b\x43
+title = " "
+
+# My gruvbox
+palette = 0=#353535
+palette = 1=#C64631
+palette = 2=#A7A534
+palette = 3=#D7AA46
+palette = 4=#649498
+palette = 5=#B57B96
+palette = 6=#84A981
+palette = 7=#B4A998
+palette = 8=#A09588
+palette = 9=#EB6B4E
+palette = 10=#C4C44E
+palette = 11=#F3C958
+palette = 12=#9AB2A8
+palette = 13=#D29DAA
+palette = 14=#A8CE94
+palette = 15=#ECE1C2
+background = #252525
+foreground = #E9DBB7
+cursor-color = #656565
+selection-background = #403E3D
+selection-foreground = #C1C1C1
+
